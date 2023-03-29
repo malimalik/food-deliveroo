@@ -1,15 +1,15 @@
 import React from "react";
 import classes from "./Header.module.css";
-import mealsImg from "./assets/mealsImg.png"
+import meals from "../assets/meals.jpg"
 const Header = () => {
   return (
     <React.Fragment>
-      <header className={classes.header} id="header">
+      <header className={classes.header}>
         <h1>Deliveroo</h1>
         <button>Cart</button>
       </header>
       <div>
-        <img></img>
+        <img src={meals} alt="A table full of food"></img>
       </div>
     </React.Fragment>
   );
