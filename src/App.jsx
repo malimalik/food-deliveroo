@@ -1,12 +1,12 @@
 import React from "react";
-import Header from "./Layout/Header";
-import MealsIntro from "./Layout/MealsIntro";
+import Header from "./Layout/Header/Header";
+import MealsIntro from "./Layout/MealsIntro/MealsIntro";
 
 function App() {
   return (
     <React.Fragment>
-      <Header/>
-        <MealsIntro/>
+      <Header />
+      <MealsIntro />
     </React.Fragment>
   );
 }
