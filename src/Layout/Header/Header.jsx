@@ -1,7 +1,7 @@
 import React from "react";
 import classes from "./Header.module.css";
 import meals from "../../assets/meals.jpg";
-import HeaderCartButton from "../HeaderCartButton/HeaderCartButton";
+import HeaderCartButton from "./HeaderCartButton/HeaderCartButton";
 const Header = () => {
   return (
     <React.Fragment>
