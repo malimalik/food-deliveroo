@@ -1,5 +1,6 @@
 import React from "react";
-import classes from "../AvailableMeals/AvailableMeals.module.css"
+import classes from "../AvailableMeals/AvailableMeals.module.css";
+import Card from "../../../Layout/Card/Card";
 
 const MEALS = [
   { mealName: "Sushi", description: "Finest fish and veggies", price: 22.99 },
@@ -14,11 +15,13 @@ const MEALS = [
 const AvailableMeals = () => {
   return (
     <section className={classes.meals}>
-      <ul>
-        {MEALS.map((meal) => {
-          <li>{meal.mealName}</li>;
-        })}
-      </ul>
+      <Card>
+        <ul>
+          {MEALS.map((meal) => {
+            return <li>{meal.mealName}</li>;
+          })}
+        </ul>
+      </Card>
     </section>
   );
 };
