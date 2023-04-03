@@ -2,7 +2,8 @@ import React from "react";
 import classes from "../AvailableMeals/AvailableMeals.module.css";
 import MealItem from "../MealItem/MealItem";
 import Card from "../../../Layout/Card/Card";
-import {nanoid} from "nanoid";
+import { nanoid } from "nanoid";
+import MealItemForm from "../MealItem/MealItemForm";
 
 const MEALS = [
   {
@@ -38,7 +39,7 @@ const AvailableMeals = () => {
                 description={meal.description}
                 price={meal.price}
               ></MealItem>
-            );
+              );
           })}
         </ul>
       </Card>

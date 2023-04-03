@@ -1,7 +1,8 @@
-import classes from "./MealItem.module.css"
+import classes from "./MealItem.module.css";
+import MealItemForm from "./MealItemForm";
 const MealItem = (props) => {
-  const {name, description} = props;
-  const price = `$${props.price.toFixed(2)}`;
+  const { name, description, price: p } = props;
+  const price = `$${p.toFixed(2)}`;
   return (
     <li className={classes.meal}>
       <div>
@@ -10,7 +11,7 @@ const MealItem = (props) => {
         <div className={classes.price}>{price}</div>
       </div>
       <div>
-        
+        <MealItemForm onSubmit={() => {}} />
       </div>
     </li>
   );
