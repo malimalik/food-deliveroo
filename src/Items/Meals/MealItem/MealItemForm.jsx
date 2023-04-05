@@ -2,11 +2,10 @@ import React from "react";
 import classes from "./MealItemForm.module.css";
 import Input from "../../../UI/Input";
 const MealItemForm = (props) => {
-  const { onSubmit } = props;
   return (
-    <form onSubmit={onSubmit} className={classes.form}>
+    <form onSubmit={props.onSubmit} className={classes.form}>
       <Input label="Amount" input={{
-        id: 'amount', 
+        id: 'amount_' + props.id, 
         type: 'number', 
         min: '1', 
         max: '5', 
