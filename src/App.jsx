@@ -4,24 +4,25 @@ import Meals from "./Items/Meals/Meals";
 import Cart from "./Cart/Cart";
 
 function App() {
-  const [isOpen, setIsOpen] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
 
   const toggleModal = () => {
     setIsOpen(!isOpen);
   };
 
   const orderMeal = () => {
-    console.log("Hello");
+    console.log("Ordered!");
   };
 
   return (
     <Fragment>
-      <Cart
-        isOpen={isOpen}
-        toggleModal={toggleModal}
-        orderMeal={orderMeal}
-      ></Cart>
-      <Header />
+      {isOpen && (
+        <Cart
+          toggleModal={toggleModal}
+          orderMeal={orderMeal}
+        ></Cart>
+      )}
+      <Header onShowModal={toggleModal} />
       <main>
         <Meals />
       </main>

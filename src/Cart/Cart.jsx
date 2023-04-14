@@ -14,7 +14,7 @@ const Cart = (props) => {
   );
   return (
     <Fragment>
-      {props.isOpen && (
+      {/* {props.isOpen && ( */}
         <CartModal>
           {cartItems}
           <div className={classes.total}>
@@ -30,7 +30,7 @@ const Cart = (props) => {
             </button>
           </div>
         </CartModal>
-      )}
+      )
     </Fragment>
   );
 };
