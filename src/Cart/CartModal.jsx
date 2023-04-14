@@ -1,13 +1,13 @@
 import classes from "./CartModal.module.css";
 import { Fragment } from "react";
-import { ReactDOM } from "react";
+import ReactDOM  from "react-dom";
 
 const Backdrop = (props) => {
   return <div className={classes.backdrop}></div>;
 };
 
 const ModalOverlay = (props) => {
-  return <div className={classes.content}>{props.children}</div>;
+  return <div className={classes.modal}>{props.children}</div>;
 };
 
 
