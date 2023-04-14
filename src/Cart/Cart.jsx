@@ -1,16 +1,10 @@
 import CartModal from "./CartModal";
 import classes from "./Cart.module.css";
-import { Fragment, useState } from "react";
+import { Fragment } from "react";
 
 const Cart = (props) => {
-  const [isOpen, setIsOpen] = useState(true);
-  const toggleModal = () => {
-    setIsOpen(!isOpen);
-  };
+  
 
-  const orderMeal = () => {
-    console.log("Hello");
-  };
   const cartItems = (
     <ul className={classes["cart-items"]}>
       {[{ id: "c1", name: "Sushi", amount: 2, price: 12.99 }].map((item) => (
@@ -20,7 +14,7 @@ const Cart = (props) => {
   );
   return (
     <Fragment>
-      {isOpen && (
+      {props.isOpen && (
         <CartModal>
           {cartItems}
           <div className={classes.total}>
@@ -28,10 +22,10 @@ const Cart = (props) => {
             <span>35.90</span>
           </div>
           <div className={classes.actions}>
-            <button className={classes["button--alt"]} onClick={toggleModal}>
+            <button className={classes["button--alt"]} onClick={props.toggleModal}>
               Close
             </button>
-            <button className={classes.button} onClick={orderMeal}>
+            <button className={classes.button} onClick={props.orderMeal}>
               Order
             </button>
           </div>

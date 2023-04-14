@@ -1,6 +1,12 @@
 import React from "react";
 import classes from "./MealItemForm.module.css";
 import Input from "../../../UI/Input";
+
+
+const openModal = () => {
+  
+}
+
 const MealItemForm = (props) => {
   return (
     <form onSubmit={props.onSubmit} className={classes.form}>
@@ -13,7 +19,7 @@ const MealItemForm = (props) => {
         defaultValue: '1'
       }} />
    
-      <button className={classes.add}>+ Add</button>
+      <button className={classes.add} onClick={openModal}>+Add</button>
     </form>
   );
 };
