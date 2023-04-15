@@ -9,6 +9,9 @@ function App() {
   const toggleModal = () => {
     setIsOpen(!isOpen);
   };
+  const dismiss = () => {
+    setIsOpen(false);
+  };
 
   const orderMeal = () => {
     console.log("Ordered!");
@@ -18,6 +21,7 @@ function App() {
     <Fragment>
       {isOpen && (
         <Cart
+          dismiss={dismiss}
           toggleModal={toggleModal}
           orderMeal={orderMeal}
         ></Cart>
