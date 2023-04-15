@@ -1,7 +1,8 @@
-import { React, useState, Fragment } from "react";
+import { React, useState } from "react";
 import Header from "./Layout/Header/Header";
 import Meals from "./Items/Meals/Meals";
 import Cart from "./Cart/Cart";
+import CartProvider from "./store/CartProvider";
 
 function App() {
   const [isOpen, setIsOpen] = useState(false);
@@ -18,7 +19,7 @@ function App() {
   };
 
   return (
-    <Fragment>
+    <CartProvider>
       {isOpen && (
         <Cart
           dismiss={dismiss}
@@ -30,7 +31,7 @@ function App() {
       <main>
         <Meals />
       </main>
-    </Fragment>
+    </CartProvider>
   );
 }
 
