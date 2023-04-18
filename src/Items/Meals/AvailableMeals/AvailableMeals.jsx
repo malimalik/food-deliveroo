@@ -3,7 +3,6 @@ import classes from "../AvailableMeals/AvailableMeals.module.css";
 import MealItem from "../MealItem/MealItem";
 import Card from "../../../Layout/Card/Card";
 import { nanoid } from "nanoid";
-import MealItemForm from "../MealItem/MealItemForm";
 
 const MEALS = [
   {
@@ -35,6 +34,7 @@ const AvailableMeals = () => {
             return (
               <MealItem
                 key={meal.id}
+                id={meal.id}
                 name={meal.mealName}
                 description={meal.description}
                 price={meal.price}
