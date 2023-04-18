@@ -11,14 +11,17 @@ const Cart = (props) => {
   const hasItems = cartCtx.items.length > 0;
 
   const cartItemRemove = (id) => {
+    cartCtx.removeItem(id);
+    // We want to delete items based off of their ID.
+  };
 
-  }
   const cartItemAdd = (item) => {
+    // we will need to identify the id of our item
+    cartCtx.addItem({ ...item, amount: 1 });
+  };
 
-  }
-
- const cartItems = (
-    <ul className={classes['cart-items']}>
+  const cartItems = (
+    <ul className={classes["cart-items"]}>
       {cartCtx.items.map((item) => (
         <CartItem
           key={item.id}
