@@ -7,7 +7,7 @@ import CartItem from "./CartItem/CartItem";
 const Cart = (props) => {
   const cartCtx = useContext(CartContext);
 
-  const totalAmount = `$${cartCtx.totalAmount.toFixed(2)}`;
+  const totalAmount = `$${cartCtx.totalAmount}`;
   const hasItems = cartCtx.items.length > 0;
 
   const cartItemRemove = (id) => {
