@@ -15,7 +15,8 @@ const cartReducer = (state, action) => {
     );
     // If the index exists, there will be an item.
     // We want to do it this way because there could be two items with the same name.
-    // When we are trying to identify an item from a list, we should do it based off
+    // When we are trying to identify an item from a list, we should do it based off of the id rather than the name of the
+    // item because that is guarenteed to be a unique identifier.
     const currentCartItem = state.items[existingCartItemIndex];
     let updatedItem;
     let updatedItems;
@@ -34,9 +35,18 @@ const cartReducer = (state, action) => {
     } else {
       updatedItems = state.items.concat(action.item);
     }
+    const updatedTotalAmount = parseFloat(
+      (state.totalAmount + action.item.price * action.item.amount).toFixed(2)
+    );
 
-    const updatedTotalAmount =
-      state.totalAmount + action.item.price * action.item.amount;
+    if (
+      typeof action.item.price != "number" ||
+      typeof action.item.amount != "number"
+    ) {
+      console.log(typeof action.item.price);
+      console.log(typeof action.item.amount);
+      return defaultCartState;
+    }
 
     return {
       items: updatedItems,
@@ -83,10 +93,12 @@ const CartProvider = (props) => {
   );
 
   const addItemToCartHandler = (item) => {
+    console.log("Adding an item with the price", item.price);
     dispatchCartAction({ type: "ADD", item: item });
   };
 
   const removeItemFromCartHandler = (id) => {
+    console.log("Removing an item with the id", id);
     dispatchCartAction({ type: "REMOVE", id: id });
   };
 

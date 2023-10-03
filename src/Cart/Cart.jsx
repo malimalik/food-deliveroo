@@ -12,7 +12,7 @@ const Cart = (props) => {
 
   const hasItems = cartCtx.items.length > 0;
 
-  const cartItemRemove = (id) => {
+  const cartItemRemove   = (id) => {
     cartCtx.removeItem(id);
     // We want to delete items based off of their ID.
   };
