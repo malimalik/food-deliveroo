@@ -3,6 +3,9 @@ import classes from "../AvailableMeals/AvailableMeals.module.css";
 import MealItem from "../MealItem/MealItem";
 import Card from "../../../Layout/Card/Card";
 import { nanoid } from "nanoid";
+import { pushMealsToDB } from "../../../config/dbOperations";
+import { ref, get, set } from "firebase/database";
+import { db } from "../../../config/firebaseConfig";
 
 const MEALS = [
   {
@@ -25,6 +28,22 @@ const MEALS = [
   },
 ];
 
+const initializeData = async () => {
+  // inside this function, i need to first fetch
+  const mealsRef = ref(db, "meals");
+  const results = await get(mealsRef);
+
+  if (!results.exists()) {
+    pushMealsToDB(MEALS);
+
+    console.log("Data Initialized");
+  } else {
+    console.log("Data not initialized");
+  }
+};
+
+initializeData();
+
 const AvailableMeals = () => {
   return (
     <section className={classes.meals}>
@@ -39,7 +58,7 @@ const AvailableMeals = () => {
                 description={meal.description}
                 price={meal.price}
               ></MealItem>
-              );
+            );
           })}
         </ul>
       </Card>
