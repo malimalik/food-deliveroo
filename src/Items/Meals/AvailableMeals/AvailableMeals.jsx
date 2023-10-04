@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import classes from "../AvailableMeals/AvailableMeals.module.css";
 import MealItem from "../MealItem/MealItem";
 import Card from "../../../Layout/Card/Card";
@@ -42,9 +42,11 @@ const initializeData = async () => {
   }
 };
 
-initializeData();
-
 const AvailableMeals = () => {
+  useEffect(() => {
+    initializeData();
+  }, []);
+
   return (
     <section className={classes.meals}>
       <Card>

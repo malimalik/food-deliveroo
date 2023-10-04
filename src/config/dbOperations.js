@@ -8,11 +8,16 @@ import {
 
 
 export const pushMealsToDB = (meals) => {
-    const mealsRef = ref(db, 'meals');
+    // const mealsRef = ref(db, 'meals');
 
-    meals.forEach(meal => {
-        const mealRef = ref(mealsRef, meal.id);
-        set(mealRef, meal); // Set the meal data in the database
+    // meals.forEach(meal => {
+    //     const mealRef = ref(mealsRef, meal.id);
+    //     set(mealRef, meal); // Set the meal data in the database
 
-    })
+    // })
+
+    const testRef = ref(db, 'test');
+    set(testRef, {
+        name: "test"
+    });
 }
