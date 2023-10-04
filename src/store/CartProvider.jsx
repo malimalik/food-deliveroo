@@ -61,7 +61,7 @@ const cartReducer = (state, action) => {
     );
 
     const currItem = state.items[existingCartItemIndex];
-    const updatedTotalAmount = state.totalAmount - currItem.price;
+    const updatedTotalAmount = parseFloat(state.totalAmount - currItem.price).toFixed(2);
     let updatedItem;
     let updatedItems;
 

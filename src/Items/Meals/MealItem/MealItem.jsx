@@ -6,7 +6,7 @@ const MealItem = (props) => {
 
   const cartCtx = useContext(CartContext);
   const { name, description, price: p, id } = props;
-  const price = parseFloat(p.toFixed(2));
+  const price = `$${p.toFixed(2)}`;
 
   const addToCartHandler = amount => {
     cartCtx.addItem({
