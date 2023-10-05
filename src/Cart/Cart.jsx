@@ -38,7 +38,6 @@ const Cart = (props) => {
   );
   return (
     <Fragment>
-      {/* {props.isOpen && ( */}
       <CartModal dismiss={props.dismiss}>
         {cartItems}
         <div className={classes.total}>
