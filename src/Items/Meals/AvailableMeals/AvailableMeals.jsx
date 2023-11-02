@@ -2,10 +2,21 @@ import React, { useEffect } from "react";
 import classes from "../AvailableMeals/AvailableMeals.module.css";
 import MealItem from "../MealItem/MealItem";
 import Card from "../../../Layout/Card/Card";
-import { pushMealsToDB } from "../../../config/dbOperations";
+
+const MEALS = [];
+
+
+
+
 
 const AvailableMeals = () => {
   // now to populate the meals, we will have to fetch from the database.
+
+
+  useEffect(() => {
+    
+  })
+  
 
   return (
     <section className={classes.meals}>

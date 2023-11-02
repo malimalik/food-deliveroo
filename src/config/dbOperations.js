@@ -1,43 +1,35 @@
 import {
-  nanoid
-} from 'nanoid'
-const {
   ref,
   set
-} = require("firebase/database");
-const {
+} from "firebase/database";
+import {
   db
-} = require("./firebaseConfig");
+} from "./firebaseConfig.js";
+import {
+  MEALS
+} from "../data/MealsData.js";
 
-const MEALS = [{
-    id: nanoid(),
-    mealName: "Sushi",
-    description: "Finest fish and veggies",
-    price: 22.99,
-  },
-  {
-    id: nanoid(),
-    mealName: "Schnitzel",
-    description: "A german specialty!",
-    price: 16.5,
-  },
-  {
-    id: nanoid(),
-    mealName: "Barbecue Burger",
-    description: "An American Specialty",
-    price: 10.5,
-  },
-];
+
+console.log(MEALS);
 
 
 const pushMealsToDB = async () => {
   try {
-    MEALS.forEach((meal) => {
+    for (const meal of MEALS) {
       const mealsRef = ref(db, `meals/${meal.id}`);
-      set(mealsRef, meal);
-    })
+      await set(mealsRef, meal);
+    }
 
+    console.log('All meals have been pushed to the database.');
   } catch (error) {
     console.error("There was an error:", error);
   }
 };
+
+export {
+  pushMealsToDB
+};
+
+if (require.main === module) {
+  pushMealsToDB().catch(err => console.log(err));
+}

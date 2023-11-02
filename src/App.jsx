@@ -4,8 +4,10 @@ import Meals from "./Items/Meals/Meals";
 import Cart from "./Cart/Cart";
 import CartProvider from "./store/CartProvider";
 
+
 function App() {
   const [isOpen, setIsOpen] = useState(false);
+
 
   const toggleModal = () => {
     setIsOpen(!isOpen);

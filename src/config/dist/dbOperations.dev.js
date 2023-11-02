@@ -1,49 +1,104 @@
 "use strict";
 
-var _nanoid = require("nanoid");
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.pushMealsToDB = void 0;
 
-var _require = require("firebase/database"),
-    ref = _require.ref,
-    set = _require.set;
+var _database = require("firebase/database");
 
-var _require2 = require("./firebaseConfig"),
-    db = _require2.db;
+var _firebaseConfig = require("./firebaseConfig.js");
 
-var MEALS = [{
-  id: (0, _nanoid.nanoid)(),
-  mealName: "Sushi",
-  description: "Finest fish and veggies",
-  price: 22.99
-}, {
-  id: (0, _nanoid.nanoid)(),
-  mealName: "Schnitzel",
-  description: "A german specialty!",
-  price: 16.5
-}, {
-  id: (0, _nanoid.nanoid)(),
-  mealName: "Barbecue Burger",
-  description: "An American Specialty",
-  price: 10.5
-}];
+var _MealsData = require("../data/MealsData.js");
+
+console.log(_MealsData.MEALS);
 
 var pushMealsToDB = function pushMealsToDB() {
+  var _iteratorNormalCompletion, _didIteratorError, _iteratorError, _iterator, _step, meal, mealsRef;
+
   return regeneratorRuntime.async(function pushMealsToDB$(_context) {
     while (1) {
       switch (_context.prev = _context.next) {
         case 0:
-          try {
-            MEALS.forEach(function (meal) {
-              var mealsRef = ref(db, "meals/".concat(meal.id));
-              set(mealsRef, meal);
-            });
-          } catch (error) {
-            console.error("There was an error:", error);
+          _context.prev = 0;
+          _iteratorNormalCompletion = true;
+          _didIteratorError = false;
+          _iteratorError = undefined;
+          _context.prev = 4;
+          _iterator = _MealsData.MEALS[Symbol.iterator]();
+
+        case 6:
+          if (_iteratorNormalCompletion = (_step = _iterator.next()).done) {
+            _context.next = 14;
+            break;
           }
 
-        case 1:
+          meal = _step.value;
+          mealsRef = (0, _database.ref)(_firebaseConfig.db, "meals/".concat(meal.id));
+          _context.next = 11;
+          return regeneratorRuntime.awrap((0, _database.set)(mealsRef, meal));
+
+        case 11:
+          _iteratorNormalCompletion = true;
+          _context.next = 6;
+          break;
+
+        case 14:
+          _context.next = 20;
+          break;
+
+        case 16:
+          _context.prev = 16;
+          _context.t0 = _context["catch"](4);
+          _didIteratorError = true;
+          _iteratorError = _context.t0;
+
+        case 20:
+          _context.prev = 20;
+          _context.prev = 21;
+
+          if (!_iteratorNormalCompletion && _iterator["return"] != null) {
+            _iterator["return"]();
+          }
+
+        case 23:
+          _context.prev = 23;
+
+          if (!_didIteratorError) {
+            _context.next = 26;
+            break;
+          }
+
+          throw _iteratorError;
+
+        case 26:
+          return _context.finish(23);
+
+        case 27:
+          return _context.finish(20);
+
+        case 28:
+          console.log('All meals have been pushed to the database.');
+          _context.next = 34;
+          break;
+
+        case 31:
+          _context.prev = 31;
+          _context.t1 = _context["catch"](0);
+          console.error("There was an error:", _context.t1);
+
+        case 34:
         case "end":
           return _context.stop();
       }
     }
-  });
+  }, null, null, [[0, 31], [4, 16, 20, 28], [21,, 23, 27]]);
 };
+
+exports.pushMealsToDB = pushMealsToDB;
+
+if (require.main === module) {
+  pushMealsToDB()["catch"](function (err) {
+    return console.log(err);
+  });
+}

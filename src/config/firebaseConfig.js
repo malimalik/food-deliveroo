@@ -1,7 +1,6 @@
-// Import the functions you need from the SDKs you need
-const { initializeApp } = require("firebase/app");
+import {initializeApp} from "firebase/app";
 // TODO: Add SDKs for Firebase products that you want to use
-const { getDatabase} =  require("firebase/database");
+import {getDatabase} from "firebase/database";
 
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -24,7 +23,4 @@ const firebaseConfig = {
 
 console.log("Database connection was successful")
 
-module.exports = {
-  app, 
-  db
-}
+export {app, db};
