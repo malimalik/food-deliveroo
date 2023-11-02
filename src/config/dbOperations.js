@@ -26,6 +26,11 @@ const pushMealsToDB = async () => {
   }
 };
 
+
+const fetchMealsFromDB = async () => {
+  
+}
+
 export {
   pushMealsToDB
 };

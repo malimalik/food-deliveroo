@@ -97,6 +97,18 @@ var pushMealsToDB = function pushMealsToDB() {
 
 exports.pushMealsToDB = pushMealsToDB;
 
+var fetchMealsFromDB = function fetchMealsFromDB() {
+  return regeneratorRuntime.async(function fetchMealsFromDB$(_context2) {
+    while (1) {
+      switch (_context2.prev = _context2.next) {
+        case 0:
+        case "end":
+          return _context2.stop();
+      }
+    }
+  });
+};
+
 if (require.main === module) {
   pushMealsToDB()["catch"](function (err) {
     return console.log(err);
