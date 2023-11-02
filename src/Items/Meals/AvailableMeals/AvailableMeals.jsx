@@ -8,6 +8,7 @@ const AvailableMeals = () => {
   // now to populate the meals, we will have to fetch from the database.
   const [mealsData, setMealsData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     setIsLoading(true);
@@ -29,15 +30,28 @@ const AvailableMeals = () => {
 
         console.log(loadedMeals);
       })
-      .catch((err) => console.error(err));
+      .catch((err) => {
+        console.error(err);
+        setError(err);
+      }
+      );
   }, []);
 
+  if (isLoading) {
+    return <div>
+      <h1 className={classes.mealloading}>Loading...</h1>
+    </div>
+  }
+
+  if (error) {
+    return <div>
+     <h1 className={classes.mealerror}> Error: {error} </h1>
+    </div>
+  }
 
   return (
     <section className={classes.meals}>
       <Card>
-      {isLoading ? <h1>Loading...</h1> : null}
-
         <ul>
           {mealsData.map((meal) => {
             return (
