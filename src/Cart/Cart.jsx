@@ -3,7 +3,6 @@ import classes from "./Cart.module.css";
 import { Fragment, useContext } from "react";
 import CartContext from "../store/cart-context";
 import CartItem from "./CartItem/CartItem";
-import DeleteIcon from "@mui/icons-material/Delete";
 
 const Cart = (props) => {
   const cartCtx = useContext(CartContext);
@@ -56,7 +55,6 @@ const Cart = (props) => {
           className={classes["button-empty-cart"]}
           onClick={props.emptyCart}
         >
-          <DeleteIcon/>
           Empty Cart
         </button>
 

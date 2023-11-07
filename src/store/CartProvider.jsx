@@ -13,23 +13,17 @@ const cartReducer = (state, action) => {
     const existingCartItemIndex = state.items.findIndex(
       (item) => item.id === action.item.id
     );
-    // If the index exists, there will be an item.
-    // We want to do it this way because there could be two items with the same name.
-    // When we are trying to identify an item from a list, we should do it based off of the id rather than the name of the
-    // item because that is guarenteed to be a unique identifier.
+
     const currentCartItem = state.items[existingCartItemIndex];
     let updatedItem;
     let updatedItems;
 
-    // if the item is already in the cart, we just need to update its amount
     if (currentCartItem) {
       updatedItem = {
         ...currentCartItem,
         amount: currentCartItem.amount + action.item.amount,
       };
 
-      // we update the currentItem but we also need to update the updatedItems
-      // update the updatedItem at the existingCartItemIndex
       updatedItems = [...state.items];
       updatedItems[existingCartItemIndex] = updatedItem;
     } else {
@@ -55,7 +49,6 @@ const cartReducer = (state, action) => {
   }
 
   if (action.type === "REMOVE") {
-    // we keep reducing the amount until it hits zero, after which we remove the item completely
     const existingCartItemIndex = state.items.findIndex(
       (item) => item.id === action.id
     );
@@ -116,6 +109,7 @@ const CartProvider = (props) => {
 
   const removeAllItems = (items) => {
     console.log("Emptying all cart items");
+    dispatchCartAction({type: "EMPTY_CART", items})
     
   }
 
