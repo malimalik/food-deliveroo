@@ -10,8 +10,6 @@ import {
 } from "../data/MealsData.js";
 
 
-console.log(MEALS);
-
 
 const pushMealsToDB = async () => {
   try {
@@ -26,10 +24,6 @@ const pushMealsToDB = async () => {
   }
 };
 
-
-const fetchMealsFromDB = async () => {
-  
-}
 
 export {
   pushMealsToDB

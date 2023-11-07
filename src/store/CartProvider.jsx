@@ -83,6 +83,18 @@ const cartReducer = (state, action) => {
       totalAmount: updatedTotalAmount,
     };
   }
+
+  if (action.type === "EMPTY_CART") {
+    state.items.length = 0;
+    let updatedItems = [...state.items];
+
+    return {
+      items: updatedItems, 
+      totalAmount: 0,
+    }
+
+  }
+
   return defaultCartState;
 };
 
@@ -101,6 +113,11 @@ const CartProvider = (props) => {
     console.log("Removing an item with the id", id);
     dispatchCartAction({ type: "REMOVE", id: id });
   };
+
+  const removeAllItems = (items) => {
+    console.log("Emptying all cart items");
+    
+  }
 
   const cartContext = {
     items: cartState.items,

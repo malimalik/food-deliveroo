@@ -3,6 +3,7 @@ import classes from "./Cart.module.css";
 import { Fragment, useContext } from "react";
 import CartContext from "../store/cart-context";
 import CartItem from "./CartItem/CartItem";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 const Cart = (props) => {
   const cartCtx = useContext(CartContext);
@@ -12,7 +13,7 @@ const Cart = (props) => {
 
   const hasItems = cartCtx.items.length > 0;
 
-  const cartItemRemove   = (id) => {
+  const cartItemRemove = (id) => {
     cartCtx.removeItem(id);
     // We want to delete items based off of their ID.
   };
@@ -21,6 +22,10 @@ const Cart = (props) => {
     // we will need to identify the id of our item
     cartCtx.addItem({ ...item, amount: 1 });
   };
+
+  const emptyCart = () => {
+    cartCtx.removeAll(cartCtx.removeAll());
+  }
 
   const cartItems = (
     <ul className={classes["cart-items"]}>
@@ -31,6 +36,7 @@ const Cart = (props) => {
           price={item.price}
           name={item.name}
           onRemove={cartItemRemove.bind(null, item.id)}
+          onEmptyCart={emptyCart.bind(null, this)}
           onAdd={cartItemAdd.bind(null, item)}
         />
       ))}
@@ -44,6 +50,16 @@ const Cart = (props) => {
           <span>Total Amount</span>
           <span>{totalAmount}</span>
         </div>
+
+        <div className={classes.button}></div>
+        <button
+          className={classes["button-empty-cart"]}
+          onClick={props.emptyCart}
+        >
+          <DeleteIcon/>
+          Empty Cart
+        </button>
+
         <div className={classes.actions}>
           <button
             className={classes["button--alt"]}
