@@ -107,7 +107,7 @@ const CartProvider = (props) => {
     dispatchCartAction({ type: "REMOVE", id: id });
   };
 
-  const removeAllItems = (items) => {
+  const removeAll = (items) => {
     console.log("Emptying all cart items");
     dispatchCartAction({type: "EMPTY_CART", items})
     
@@ -118,6 +118,7 @@ const CartProvider = (props) => {
     totalAmount: cartState.totalAmount,
     addItem: addItemToCartHandler,
     removeItem: removeItemFromCartHandler,
+    removeAll: removeAll,
   };
 
   return (

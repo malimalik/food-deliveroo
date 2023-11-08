@@ -23,8 +23,8 @@ const Cart = (props) => {
   };
 
   const emptyCart = () => {
-    cartCtx.removeAll(cartCtx.removeAll());
-  }
+    cartCtx.removeAll();
+  };
 
   const cartItems = (
     <ul className={classes["cart-items"]}>
@@ -35,7 +35,6 @@ const Cart = (props) => {
           price={item.price}
           name={item.name}
           onRemove={cartItemRemove.bind(null, item.id)}
-          onEmptyCart={emptyCart.bind(null, this)}
           onAdd={cartItemAdd.bind(null, item)}
         />
       ))}
@@ -50,15 +49,13 @@ const Cart = (props) => {
           <span>{totalAmount}</span>
         </div>
 
-        <div className={classes.button}></div>
-        <button
-          className={classes["button-empty-cart"]}
-          onClick={props.emptyCart}
-        >
-          Empty Cart
-        </button>
 
         <div className={classes.actions}>
+          {hasItems && (
+            <button className={classes.button} onClick={emptyCart}>
+              Empty Cart
+            </button>
+          )}
           <button
             className={classes["button--alt"]}
             onClick={props.toggleModal}

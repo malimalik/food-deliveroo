@@ -18,7 +18,9 @@
   }
   
   .actions {
-    text-align: right;
+    display: flex;
+    justify-content: flex-end; /* This will align the items to the right */
+    /* Add any additional styles you need for the container */
   }
   
   .actions button {
@@ -28,6 +30,13 @@
     border: 1px solid #8a2b06;
     padding: 0.5rem 2rem;
     border-radius: 25px;
+  }
+  
+  .actions button:first-child {
+    margin-right: auto; /* This will push all subsequent elements to the right */
+  }
+
+  .actions button:not(:first-child) {
     margin-left: 1rem;
   }
   
@@ -43,7 +52,7 @@
   }
 
   .actions .remove-all {
-    color: #8a2b06;
+    text-align: left;
   }
 
   
