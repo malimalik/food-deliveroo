@@ -1,11 +1,13 @@
 import CartModal from "./CartModal";
 import classes from "./Cart.module.css";
-import { Fragment, useContext } from "react";
+import { Fragment, useContext, useState } from "react";
 import CartContext from "../store/cart-context";
 import CartItem from "./CartItem/CartItem";
+import CartCheckout from "./CartCheckout";
 
 const Cart = (props) => {
   const cartCtx = useContext(CartContext);
+  const [isCheckout, setisCheckout] = useState(false);
 
   const totalAmount = `$${cartCtx.totalAmount}`;
   console.log(cartCtx.total);
@@ -24,6 +26,11 @@ const Cart = (props) => {
 
   const emptyCart = () => {
     cartCtx.removeAll();
+  };
+
+  const orderHandler = (e) => {
+    e.preventDefault();
+    setisCheckout(true);
   };
 
   const cartItems = (
@@ -49,6 +56,9 @@ const Cart = (props) => {
           <span>{totalAmount}</span>
         </div>
 
+        {isCheckout && (
+          <CartCheckout handleSubmit={() => {}} handleChange={() => {}} />
+        )}
 
         <div className={classes.actions}>
           {hasItems && (
@@ -62,8 +72,8 @@ const Cart = (props) => {
           >
             Close
           </button>
-          {hasItems && (
-            <button className={classes.button} onClick={props.orderMeal}>
+          {hasItems && !isCheckout && (
+            <button className={classes.button} onClick={orderHandler}>
               Order
             </button>
           )}
