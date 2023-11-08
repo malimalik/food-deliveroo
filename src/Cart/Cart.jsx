@@ -61,7 +61,7 @@ const Cart = (props) => {
         )}
 
         <div className={classes.actions}>
-          {hasItems && (
+          {hasItems && !isCheckout && (
             <button className={classes.button} onClick={emptyCart}>
               Empty Cart
             </button>
