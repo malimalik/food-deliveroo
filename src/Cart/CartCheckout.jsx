@@ -47,7 +47,7 @@ const CartCheckout = (props) => {
 
   return (
     <form onSubmit={submissionHandler} className={classes.form}>
-      <div className={classes.form}>
+      <div className={classes.control}>
         <label htmlFor="first-name">First name</label>
         <input
           type="text"
@@ -57,7 +57,7 @@ const CartCheckout = (props) => {
           onChange={changeHandler}
         />
       </div>
-      <div>
+      <div className={classes.control}>
         <label htmlFor="last-name">Last name</label>
         <input
           type="text"
@@ -67,7 +67,7 @@ const CartCheckout = (props) => {
           onChange={changeHandler}
         />
       </div>
-      <div>
+      <div className={classes.control}>
         <label htmlFor="address">Address</label>
         <input
           type="text"
@@ -78,9 +78,13 @@ const CartCheckout = (props) => {
         />
       </div>
 
-      <div>
+      <div className={classes.actions}>
         <button type="submit">Confirm</button>
-        <button type="button" onClick={props.onCancel}>
+        <button
+          className={classes.submit}
+          type="button"
+          onClick={props.onCancel}
+        >
           Cancel
         </button>
       </div>
