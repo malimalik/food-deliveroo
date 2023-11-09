@@ -1,6 +1,4 @@
-import { Fragment } from "react";
 import classes from "./CartCheckout.module.css";
-import { FormatTextdirectionLToROutlined } from "@mui/icons-material";
 
 const CartCheckout = (props) => {
   return (
@@ -38,6 +36,7 @@ const CartCheckout = (props) => {
 
       <div>
         <button type="submit">Confirm</button>
+        <button type="button" onClick={props.onCancel}>Cancel</button>
       </div>
     </form>
   );

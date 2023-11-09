@@ -29,9 +29,14 @@ const Cart = (props) => {
   };
 
   const orderHandler = (e) => {
+
+    // here we collect the values, 
+    // the name of the items and their quantity and the price
+    // the total price as well
     e.preventDefault();
     setisCheckout(true);
   };
+
 
   const cartItems = (
     <ul className={classes["cart-items"]}>
@@ -47,6 +52,27 @@ const Cart = (props) => {
       ))}
     </ul>
   );
+
+  const cartActions = (
+    <div className={classes.actions}>
+      {hasItems && !isCheckout && (
+        <button className={classes.button} onClick={emptyCart}>
+          Empty Cart
+        </button>
+      )}
+      {!isCheckout && (
+        <button className={classes["button--alt"]} onClick={props.toggleModal}>
+          Close
+        </button>
+      )}
+      {hasItems && !isCheckout && (
+        <button className={classes.button} onClick={orderHandler}>
+          Order
+        </button>
+      )}
+    </div>
+  );
+
   return (
     <Fragment>
       <CartModal dismiss={props.dismiss}>
@@ -57,27 +83,14 @@ const Cart = (props) => {
         </div>
 
         {isCheckout && (
-          <CartCheckout handleSubmit={() => {}} handleChange={() => {}} />
+          <CartCheckout
+            handleSubmit={() => {}}
+            handleChange={() => {}}
+            onCancel={props.toggleModal}
+          />
         )}
 
-        <div className={classes.actions}>
-          {hasItems && !isCheckout && (
-            <button className={classes.button} onClick={emptyCart}>
-              Empty Cart
-            </button>
-          )}
-          <button
-            className={classes["button--alt"]}
-            onClick={props.toggleModal}
-          >
-            Close
-          </button>
-          {hasItems && !isCheckout && (
-            <button className={classes.button} onClick={orderHandler}>
-              Order
-            </button>
-          )}
-        </div>
+        {cartActions}
       </CartModal>
       )
     </Fragment>
