@@ -4,10 +4,13 @@ import { Fragment, useContext, useState } from "react";
 import CartContext from "../store/cart-context";
 import CartItem from "./CartItem/CartItem";
 import CartCheckout from "./CartCheckout";
+import axios from "axios";
 
 const Cart = (props) => {
   const cartCtx = useContext(CartContext);
   const [isCheckout, setisCheckout] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isDataSent, setIsDataSent] = useState(false);
 
   const totalAmount = `$${cartCtx.totalAmount}`;
   console.log(cartCtx.total);
@@ -29,14 +32,42 @@ const Cart = (props) => {
   };
 
   const orderHandler = (e) => {
-
-    // here we collect the values, 
+    // here we collect the values,
     // the name of the items and their quantity and the price
     // the total price as well
     e.preventDefault();
     setisCheckout(true);
   };
 
+  const confirmOrderHandler = async (checkoutData) => {
+    setIsSubmitting(true);
+
+    const { items, totalAmount } = cartCtx;
+
+    const payload = {
+      items: items,
+      total: totalAmount,
+      details: checkoutData,
+    };
+
+    try {
+      const response = await axios.post(
+        "https://deliveroo-90143-default-rtdb.firebaseio.com/orders.json",
+        payload
+      );
+
+      if (response.status === 200) {
+        console.log("Successfully submitted data");
+        setIsSubmitting(false);
+        setIsDataSent(true);
+        cartCtx.removeAll();
+      } else {
+        console.error("Failed to save data", response.status);
+      }
+    } catch (error) {
+      console.error("An error occurred while saving the data", error);
+    }
+  };
 
   const cartItems = (
     <ul className={classes["cart-items"]}>
@@ -84,13 +115,13 @@ const Cart = (props) => {
 
         {isCheckout && (
           <CartCheckout
-            handleSubmit={() => {}}
-            handleChange={() => {}}
+            onConfirm={confirmOrderHandler}
             onCancel={props.toggleModal}
           />
         )}
 
         {cartActions}
+        <div></div>
       </CartModal>
       )
     </Fragment>

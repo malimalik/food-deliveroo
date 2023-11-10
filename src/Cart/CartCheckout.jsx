@@ -1,38 +1,57 @@
 import classes from "./CartCheckout.module.css";
-import CartContext from "../store/cart-context";
-import { useState, useContext } from "react";
-import axios from "axios";
-import { CleaningServicesOutlined } from "@mui/icons-material";
+import { useState } from "react";
+
+const isEmpty = (value) => {
+  return value === null || value.match(/^ *$/) !== null;
+};
 
 const CartCheckout = (props) => {
+  const [formInputIsValid, setFormInputIsValid] = useState({
+    firstName: null,
+    lastName: null,
+    address: null,
+  });
+
   const [checkoutData, setCheckoutData] = useState({});
-  const cartCtx = useContext(CartContext);
+
+  const {
+    "first-name": firstName,
+    "last-name": lastName,
+    address,
+  } = checkoutData;
+
+  console.log("here is the checkout data");
+  console.log(checkoutData);
 
   const submissionHandler = (event) => {
     event.preventDefault();
-    const { items, totalAmount } = cartCtx;
-    const payload = {
-      items: items,
-      total: totalAmount,
-      details: checkoutData,
+
+    const newFormValidity = {
+      firstName: !isEmpty(firstName.trim()),
+      lastName: !isEmpty(lastName.trim()),
+      address: !isEmpty(address.trim()),
     };
 
-    try {
-      const response = axios.post(
-        "https://deliveroo-90143-default-rtdb.firebaseio.com/orders.json",
-        payload
-      );
+    setFormInputIsValid(newFormValidity);
 
-      if (response.status === 200) {
-        console.log("Successfully submitted data");
-      } else {
-        console.error("Failed to save data", response.status);
-      }
-    } catch (error) {
-      console.error("An error occurred while saving the data", error);
+    const formIsValid =
+      !isEmpty(firstName.trim()) &&
+      !isEmpty(lastName.trim()) &&
+      !isEmpty(address.trim());
+
+    if (formIsValid) {
+      props.onConfirm({
+        firstName: firstName.trim(),
+        lastName: lastName.trim(),
+        address: address.trim(),
+      });
+    } else {
+      setFormInputIsValid({
+        firstName: !isEmpty(firstName.trim()),
+        lastName: !isEmpty(lastName.trim()),
+        address: !isEmpty(address.trim()),
+      });
     }
-
-    console.log(payload);
   };
 
   const changeHandler = (event) => {
@@ -42,12 +61,22 @@ const CartCheckout = (props) => {
         [event.target.name]: event.target.value,
       };
     });
-    console.log(event.target.value);
   };
+
+  const firstNameControlClasses = `${classes.control} ${
+    formInputIsValid.firstName === false ? classes.invalid : ""
+  }`;
+
+  const lastNameControlClasses = `${classes.control} ${
+    formInputIsValid.lastName === false ? classes.invalid : ""
+  }`;
+  const addressControlClasses = `${classes.control} ${
+    formInputIsValid.address === false ? classes.invalid : ""
+  }`;
 
   return (
     <form onSubmit={submissionHandler} className={classes.form}>
-      <div className={classes.control}>
+      <div className={firstNameControlClasses}>
         <label htmlFor="first-name">First name</label>
         <input
           type="text"
@@ -56,8 +85,10 @@ const CartCheckout = (props) => {
           required
           onChange={changeHandler}
         />
+
+        {!formInputIsValid.firstName && <p>Please enter a first name</p>}
       </div>
-      <div className={classes.control}>
+      <div className={lastNameControlClasses}>
         <label htmlFor="last-name">Last name</label>
         <input
           type="text"
@@ -66,8 +97,9 @@ const CartCheckout = (props) => {
           required
           onChange={changeHandler}
         />
+        {!formInputIsValid.lastName && <p>Please enter a last name</p>}
       </div>
-      <div className={classes.control}>
+      <div className={addressControlClasses}>
         <label htmlFor="address">Address</label>
         <input
           type="text"
@@ -76,6 +108,7 @@ const CartCheckout = (props) => {
           required
           onChange={changeHandler}
         />
+        {!formInputIsValid.address && <p>Please enter an address</p>}
       </div>
 
       <div className={classes.actions}>
