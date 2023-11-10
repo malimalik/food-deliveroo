@@ -1,6 +1,6 @@
 import CartModal from "./CartModal";
 import classes from "./Cart.module.css";
-import { Fragment, useContext, useState } from "react";
+import React, { Fragment, useContext, useState } from "react";
 import CartContext from "../store/cart-context";
 import CartItem from "./CartItem/CartItem";
 import CartCheckout from "./CartCheckout";
@@ -58,15 +58,16 @@ const Cart = (props) => {
 
       if (response.status === 200) {
         console.log("Successfully submitted data");
-        setIsSubmitting(false);
-        setIsDataSent(true);
-        cartCtx.removeAll();
       } else {
         console.error("Failed to save data", response.status);
       }
     } catch (error) {
       console.error("An error occurred while saving the data", error);
     }
+
+    setIsSubmitting(false);
+    setIsDataSent(true);
+    cartCtx.removeAll();
   };
 
   const cartItems = (
@@ -104,24 +105,40 @@ const Cart = (props) => {
     </div>
   );
 
+  const cartModalContent = (
+    <React.Fragment>
+      {cartItems}
+      <div className={classes.total}>
+        <span>Total Amount</span>
+        <span>{totalAmount}</span>
+      </div>
+
+      {isCheckout && (
+        <CartCheckout
+          onConfirm={confirmOrderHandler}
+          onCancel={props.toggleModal}
+        />
+      )}
+
+      {!isCheckout && cartActions}
+    </React.Fragment>
+  );
+
   return (
     <Fragment>
       <CartModal dismiss={props.dismiss}>
-        {cartItems}
-        <div className={classes.total}>
-          <span>Total Amount</span>
-          <span>{totalAmount}</span>
+        {!isSubmitting && !isDataSent && cartModalContent}
+        {isSubmitting && <p>Submitting Data</p>}
+        {!isSubmitting && isDataSent && (
+          <React.Fragment>
+          <p>Successfully sent the order!</p>
+          <div className={classes.actions}>
+          <button className={classes.button} onClick={props.onClose}>
+            Close
+          </button>
         </div>
-
-        {isCheckout && (
-          <CartCheckout
-            onConfirm={confirmOrderHandler}
-            onCancel={props.toggleModal}
-          />
+        </React.Fragment>
         )}
-
-        {cartActions}
-        <div></div>
       </CartModal>
       )
     </Fragment>
