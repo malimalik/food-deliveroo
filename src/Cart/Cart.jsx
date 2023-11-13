@@ -4,6 +4,8 @@ import React, { Fragment, useContext, useState } from "react";
 import CartContext from "../store/cart-context";
 import CartItem from "./CartItem/CartItem";
 import CartCheckout from "./CartCheckout";
+import CartCheckoutRef from "./CartCheckoutRef";
+import CartCheckoutFormData from "./CartCheckoutFormData";
 import axios from "axios";
 
 const Cart = (props) => {
@@ -114,8 +116,8 @@ const Cart = (props) => {
       </div>
 
       {isCheckout && (
-        <CartCheckout
-          onConfirm={confirmOrderHandler}
+        <CartCheckoutFormData
+          // onConfirm={confirmOrderHandler}
           onCancel={props.toggleModal}
         />
       )}
