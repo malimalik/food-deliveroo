@@ -14,11 +14,7 @@ const CartCheckout = (props) => {
 
   const [checkoutData, setCheckoutData] = useState({});
 
-  const {
-    firstName = "",
-     lastName = "",
-    address = "",
-  } = checkoutData;
+  const { firstName = "", lastName = "", address = "" } = checkoutData;
 
   const [didEdit, setDidEdit] = useState({
     firstName: false,
@@ -26,9 +22,9 @@ const CartCheckout = (props) => {
     address: false,
   });
 
-  const firstNameIsInvalid = !firstName.includes("@") && didEdit.firstName;
-  console.log("first name is invalid?");
-  console.log(firstNameIsInvalid);
+  const firstNameIsInvalid = isEmpty(firstName.trim()) && didEdit.firstName;
+  const lastNameIsInvalid = isEmpty(lastName.trim()) && didEdit.lastName;
+  const addressIsInvalid = isEmpty(address.trim()) && didEdit.address;
 
   const submissionHandler = (event) => {
     event.preventDefault();
@@ -68,6 +64,13 @@ const CartCheckout = (props) => {
       return {
         ...prevData,
         [event.target.name]: event.target.value,
+      };
+    });
+
+    setDidEdit((prevState) => {
+      return {
+        ...prevState,
+        [event.target.name]: true,
       };
     });
   };
@@ -117,7 +120,7 @@ const CartCheckout = (props) => {
           onChange={changeHandler}
           onBlur={handleBlur}
         />
-        {!formInputIsValid.lastName && <p>Please enter a last name</p>}
+        {lastNameIsInvalid && <p>Please enter a last name</p>}
       </div>
       <div className={addressControlClasses}>
         <label htmlFor="address">Address</label>
@@ -129,7 +132,7 @@ const CartCheckout = (props) => {
           onChange={changeHandler}
           onBlur={handleBlur}
         />
-        {!formInputIsValid.address && <p>Please enter an address</p>}
+        {addressIsInvalid && <p>Please enter a first name</p>}
       </div>
 
       <div className={classes.actions}>
