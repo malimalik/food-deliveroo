@@ -15,13 +15,20 @@ const CartCheckout = (props) => {
   const [checkoutData, setCheckoutData] = useState({});
 
   const {
-    "first-name": firstName,
-    "last-name": lastName,
-    address,
+    firstName = "",
+     lastName = "",
+    address = "",
   } = checkoutData;
 
-  console.log("here is the checkout data");
-  console.log(checkoutData);
+  const [didEdit, setDidEdit] = useState({
+    firstName: false,
+    lastName: false,
+    address: false,
+  });
+
+  const firstNameIsInvalid = !firstName.includes("@") && didEdit.firstName;
+  console.log("first name is invalid?");
+  console.log(firstNameIsInvalid);
 
   const submissionHandler = (event) => {
     event.preventDefault();
@@ -65,6 +72,15 @@ const CartCheckout = (props) => {
     });
   };
 
+  const handleBlur = (e) => {
+    setDidEdit((prevState) => {
+      return {
+        ...prevState,
+        [e.target.name]: true,
+      };
+    });
+  };
+
   const firstNameControlClasses = `${classes.control} ${
     formInputIsValid.firstName === false ? classes.invalid : ""
   }`;
@@ -83,21 +99,23 @@ const CartCheckout = (props) => {
         <input
           type="text"
           id="name"
-          name="first-name"
+          name="firstName"
           required
           onChange={changeHandler}
+          onBlur={handleBlur}
         />
 
-        {!formInputIsValid.firstName && <p>Please enter a first name</p>}
+        {firstNameIsInvalid && <p>Please enter a first name</p>}
       </div>
       <div className={lastNameControlClasses}>
         <label htmlFor="last-name">Last name</label>
         <input
           type="text"
           id="last-name"
-          name="last-name"
+          name="lastName"
           required
           onChange={changeHandler}
+          onBlur={handleBlur}
         />
         {!formInputIsValid.lastName && <p>Please enter a last name</p>}
       </div>
@@ -109,6 +127,7 @@ const CartCheckout = (props) => {
           name="address"
           required
           onChange={changeHandler}
+          onBlur={handleBlur}
         />
         {!formInputIsValid.address && <p>Please enter an address</p>}
       </div>

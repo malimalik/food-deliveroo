@@ -12,6 +12,7 @@ const CartCheckout = (props) => {
     address: null,
   });
 
+
   const [checkoutData, setCheckoutData] = useState({});
 
   const {
@@ -20,8 +21,7 @@ const CartCheckout = (props) => {
     address,
   } = checkoutData;
 
-  console.log("here is the checkout data");
-  console.log(checkoutData);
+ 
 
   const submissionHandler = (event) => {
     event.preventDefault();
@@ -67,6 +67,7 @@ const CartCheckout = (props) => {
     });
   };
 
+
   const firstNameControlClasses = `${classes.control} ${
     formInputIsValid.firstName === false ? classes.invalid : ""
   }`;
@@ -90,7 +91,6 @@ const CartCheckout = (props) => {
           onChange={changeHandler}
         />
 
-        {!formInputIsValid.firstName && <p>Please enter a first name</p>}
       </div>
       <div className={lastNameControlClasses}>
         <label htmlFor="last-name">Last name</label>
@@ -100,6 +100,7 @@ const CartCheckout = (props) => {
           name="last-name"
           required
           onChange={changeHandler}
+
         />
         {!formInputIsValid.lastName && <p>Please enter a last name</p>}
       </div>
@@ -111,6 +112,7 @@ const CartCheckout = (props) => {
           name="address"
           required
           onChange={changeHandler}
+
         />
         {!formInputIsValid.address && <p>Please enter an address</p>}
       </div>
