@@ -52,6 +52,8 @@ const CartCheckout = (props) => {
         address: !isEmpty(address.trim()),
       });
     }
+
+    event.target.reset();
   };
 
   const changeHandler = (event) => {

@@ -116,8 +116,8 @@ const Cart = (props) => {
       </div>
 
       {isCheckout && (
-        <CartCheckoutFormData
-          // onConfirm={confirmOrderHandler}
+        <CartCheckout
+          onConfirm={confirmOrderHandler}
           onCancel={props.toggleModal}
         />
       )}
@@ -135,7 +135,7 @@ const Cart = (props) => {
           <React.Fragment>
           <p>Successfully sent the order!</p>
           <div className={classes.actions}>
-          <button className={classes.button} onClick={props.onClose}>
+          <button className={classes.button} onClick={props.toggleModal}>
             Close
           </button>
         </div>
